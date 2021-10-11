@@ -1,16 +1,19 @@
 package com.company.projagd;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 public class Agenda {
 
-    private ArrayList<Contato> listaDeContato;
+    private List<Contato> listaDeContato;
 
     public Agenda() {
-        this.listaDeContato = new ArrayList<>();
+        this.listaDeContato = new LinkedList<>();
     }
 
-    public ArrayList<Contato> getListaDeContato() {
+    public List<Contato> getListaDeContato() {
         return listaDeContato;
     }
 
@@ -18,14 +21,22 @@ public class Agenda {
         this.listaDeContato = listaDeContato;
     }
 
-    public ArrayList<Contato> pesquisarAniversarianteMes(byte mes) {
-        ArrayList<Contato> encontrados = new ArrayList<>();
+    public List<Contato> pesquisarAniversarianteMes(byte mes) {
+        List<Contato> encontrados = new ArrayList<>();
         for (int i = 0; i < this.listaDeContato.size(); i++) {
             if (this.listaDeContato.get(i).getObjData().getMes() == mes) {
                 encontrados.add(this.listaDeContato.get(i));
             }
         }
         return encontrados;
+    }
+
+    public boolean cadastrarContato(final Contato contato) {
+        if (Objects.nonNull(pesquisarContatoNome(contato.getNome()))) {
+            return false;
+        }
+        listaDeContato.add(contato);
+        return true;
     }
 
     public Contato pesquisarContatoNome(String nome) {
@@ -37,16 +48,12 @@ public class Agenda {
         return null;
     }
 
-    public String mostrarTodosOsContatos() {
-        String contatos = "┌-----------------┐\n"
-                + "│Lista de contatos│\n"
-                + "└-----------------┘\n";
-        for (int i = 0; i < this.listaDeContato.size(); i++) {
-            contatos += "\n┌---------┐\n"
-                    + "│CONTATO " + (i + 1) + "│\n"
-                    + "└---------┘" + this.listaDeContato.get(i) + "\n";
-        }
-        return contatos;
+    public boolean removerContato(Contato objCcontato) {
+        return listaDeContato.remove(objCcontato);
+    }
+
+    public void limparListaContato() {
+        listaDeContato.clear();
     }
 
     public boolean verificarCadastro(String nome) {
@@ -56,12 +63,6 @@ public class Agenda {
             }
         }
         return false;
-    }
-
-    @Override
-    public String toString() {
-        return "\n"
-                + "Lista de Contato: " + this.mostrarTodosOsContatos();
     }
 
 }
