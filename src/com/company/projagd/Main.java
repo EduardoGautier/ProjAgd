@@ -7,7 +7,31 @@ import java.util.Scanner;
 
 public class Main {
 
+    private static boolean autentication() {
 
+        Scanner leia = new Scanner(System.in);
+        Seguranca seguranca = new Seguranca();
+        do {
+
+            System.out.println("Usuario: ");
+            String usuario = leia.nextLine();
+
+            System.out.println("Senha: ");
+            String senha = leia.nextLine();
+
+
+            if (seguranca.autenticar(usuario, senha) == false) {
+                System.out.println("\nUsuario ou senha Invalidos!\nDigite Novamente!\n");
+                continue;
+            }
+
+            System.out.println("Usuario autenticado com sucesso!");
+            break;
+
+        } while (true);
+
+        return true;
+    }
 
 
     private static void menu() {
@@ -34,6 +58,7 @@ public class Main {
         Scanner leia = new Scanner(System.in);
         String nome;
 
+
         do {
             System.out.println("┌---------------------------┐\n"
                     + "│Informe os dados do contato│\n"
@@ -46,29 +71,30 @@ public class Main {
             }
             break;
         } while (true);
-        final Contato contato = new Contato();
-        contato.setNome(nome);
+
         System.out.print("Telefone: ");
-        contato.setFone(leia.next());
+        final String fone = leia.next();
+
+        final Contato contato = new Contato(nome, fone);
 
         do {
             System.out.println("┌----------------------------┐\n"
                     + "│Informe a data de nascimento│\n"
                     + "└----------------------------┘");
             System.out.print("Dia: ");
-            contato.getObjData().setDia(leia.nextByte());
+            final int dia = leia.nextByte();
             System.out.print("Mês: ");
-            contato.getObjData().setMes(leia.nextByte());
+            final int mes = leia.nextByte();
             System.out.print("Ano: ");
-            contato.getObjData().setAno(leia.nextInt());
-
-            if (!(contato.getObjData().validarData())) {
+            final int ano = leia.nextInt();
+            if (!(Data.validarData(dia, mes, ano))) {
                 System.out.println("\nData inválida\nDigite novamente");
+                continue;
             }
-
-        } while (!contato.getObjData().validarData());
+            contato.setObjData(new Data(dia, mes, ano));
+            break;
+        } while (true);
         agenda.cadastrarContato(contato);
-        Tela.limparTela();
         return contato;
     }
 
@@ -83,15 +109,15 @@ public class Main {
         String contatos = "┌-----------------┐\n"
                 + "│Lista de contatos│\n"
                 + "└-----------------┘\n";
-        for (int i = 0; i < lista.size(); i++) {
+        for (Contato contato : lista) {
             contatos += "\n┌---------┐\n"
-                    + "│CONTATO " + (i + 1) + "│\n"
-                    + "└---------┘" + lista.get(i) + "\n";
+                    + "│CONTATO  " + "│\n"
+                    + "└---------┘" + contato + "\n";
         }
         System.out.println(contatos);
     }
 
-    private static void mostrarQtdCtt(final Agenda agenda) {
+    private static void mostrarQtdContatos(final Agenda agenda) {
 
         final List<Contato> lista = agenda.getListaDeContato();
 
@@ -99,7 +125,9 @@ public class Main {
             System.out.println("Não existem contatos registrados");
             return;
         }
-        System.out.print("A quantidade de contatos é: " + lista.size());
+
+        System.out.print("A quantidade de contatos é: " + agenda.mostrarQtdContatos());
+
 
     }
 
@@ -146,22 +174,25 @@ public class Main {
 
     private static List<Contato> alterarContatoPorNome(final Agenda agenda) {
         Scanner leia = new Scanner(System.in);
-
+        String fone;
         if (agenda.getListaDeContato().isEmpty()) {
             System.out.println("Não existem contatos cadastrados");
             return Collections.emptyList();
         } else {
             System.out.print("Digite o nome do contato que deseja alterar: ");
-            Contato busca = agenda.pesquisarContatoNome(leia.next());
+            Contato busca = agenda.alteraracaoContatoPorNome(leia.nextLine());
             if (busca == null) {
                 System.out.println("Contato não cadastrado");
             } else {
+
                 System.out.print("Digite o novo telefone: ");
                 busca.setFone(leia.next());
+                System.out.println("Telefone Alterado Com Sucesso");
             }
         }
         return new ArrayList<>(0);
     }
+
 
     private static void excluirContatoPorNome(final Agenda agenda) {
         Scanner leia = new Scanner(System.in);
@@ -187,7 +218,6 @@ public class Main {
                     + "[2] - Não\n"
                     + "Digite aqui a opção: ");
             op = leia.nextByte();
-            Tela.limparTela();
             switch (op) {
                 case 1:
                     agenda.removerContato(busca);
@@ -224,7 +254,6 @@ public class Main {
                     + "[2] - Não\n"
                     + "Digite aqui a opção: ");
             op = leia.nextByte();
-            Tela.limparTela();
             switch (op) {
                 case 1:
                     agenda.limparListaContato();
@@ -242,51 +271,68 @@ public class Main {
 
 
     public static void main(String[] args) {
+
         Scanner leia = new Scanner(System.in);
         final Agenda agenda = new Agenda();
 
-        byte op;
+        byte op = 1;
 
+        final boolean authenticated = autentication();
 
-        do {
-
+        while (authenticated && op != 0) {
             menu();
             op = leia.nextByte();
-            Tela.limparTela();
+
 
             switch (op) {
 
                 case 1:
+
                     cadastrar(agenda);
+
                     break;
                 case 2:
+
                     exibirContatos(agenda);
+
                     break;
                 case 3:
-                    mostrarQtdCtt(agenda);
+
+                    mostrarQtdContatos(agenda);
+
                     break;
                 case 4:
+
                     pesquisarContatoPorMes(agenda);
+
                     break;
                 case 5:
+
                     pesquisarContatoPorNome(agenda);
+
                     break;
                 case 6:
+
                     alterarContatoPorNome(agenda);
+
                     break;
                 case 7:
+
                     excluirContatoPorNome(agenda);
+
                     break;
                 case 8:
+
                     excluirTodosContatos(agenda);
+
                     break;
                 case 0:
+
                     System.out.println("SISTEMA ENCERRADO");
                     break;
                 default:
                     System.out.println("Opção inválida\nDigite novamente");
             }
-
-        } while (op != 0);
+        }
     }
 }

@@ -17,18 +17,26 @@ public class Agenda {
         return listaDeContato;
     }
 
-    public void setListaDeContato(ArrayList<Contato> listaDeContato) {
-        this.listaDeContato = listaDeContato;
-    }
-
     public List<Contato> pesquisarAniversarianteMes(byte mes) {
-        List<Contato> encontrados = new ArrayList<>();
-        for (int i = 0; i < this.listaDeContato.size(); i++) {
-            if (this.listaDeContato.get(i).getObjData().getMes() == mes) {
-                encontrados.add(this.listaDeContato.get(i));
+        List<Contato> encontrados = new LinkedList<>();
+
+        for (final Contato contato : listaDeContato) {
+            if (contato.getObjData().getMes() == mes) {
+                encontrados.add(contato);
             }
         }
+
         return encontrados;
+    }
+
+    public Contato alteraracaoContatoPorNome(String nome) {
+
+        for (final Contato contato : listaDeContato) {
+            if (contato.getNome().equalsIgnoreCase(nome)) {
+                return contato;
+            }
+        }
+        return null;
     }
 
     public boolean cadastrarContato(final Contato contato) {
@@ -40,11 +48,13 @@ public class Agenda {
     }
 
     public Contato pesquisarContatoNome(String nome) {
-        for (int i = 0; i < this.listaDeContato.size(); i++) {
-            if (this.listaDeContato.get(i).getNome().equalsIgnoreCase(nome)) {
-                return this.listaDeContato.get(i);
+
+        for (final Contato contato : listaDeContato) {
+            if (contato.getNome().equalsIgnoreCase(nome)) {
+                return contato;
             }
         }
+
         return null;
     }
 
@@ -57,12 +67,16 @@ public class Agenda {
     }
 
     public boolean verificarCadastro(String nome) {
-        for (int i = 0; i < this.listaDeContato.size(); i++) {
-            if (this.listaDeContato.get(i).getNome().equalsIgnoreCase(nome)) {
+
+        for (final Contato contato : listaDeContato) {
+            if (contato.getNome().equalsIgnoreCase(nome)) {
                 return true;
             }
         }
         return false;
     }
 
+    public int mostrarQtdContatos() {
+        return listaDeContato.size();
+    }
 }

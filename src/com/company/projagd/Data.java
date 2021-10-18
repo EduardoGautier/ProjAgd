@@ -6,9 +6,23 @@ public class Data {
     private byte mes;
     private int ano;
 
+    public Data(final int dia, final int mes, final int ano) {
+        if (!(validarData(dia, mes, ano))) {
+            throw new RuntimeException("Data Inválida!");
+        }
+        this.ano = ano;
+        this.mes = (byte) mes;
+        this.dia = (byte) dia;
+    }
+
     public byte getDia() {
         return dia;
     }
+
+    public static boolean validarData(final int dia, final int mes, final int ano) {
+        return ((dia >= 1 && mes >= 1 && mes <= 12 && ano > 0) && ((((mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) && (dia <= 31)) || (mes == 4 || mes == 6 || mes == 9 || mes == 11) && (dia <= 30)) || (((mes == 2) && (dia <= 28)) || ((mes == 2 && dia <= 29) && (ano % 4 == 0)) && ((ano % 100 != 0) || (ano % 400 == 0)))));
+    }
+
 
     public void setDia(byte dia) {
         this.dia = dia;
@@ -30,13 +44,13 @@ public class Data {
         this.ano = ano;
     }
 
-    public boolean validarData(){
+    public boolean validarData() {
         return ((dia >= 1 && mes >= 1 && mes <= 12 && ano > 0) && ((((mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) && (dia <= 31)) || (mes == 4 || mes == 6 || mes == 9 || mes == 11) && (dia <= 30)) || (((mes == 2) && (dia <= 28)) || ((mes == 2 && dia <= 29) && (ano % 4 == 0)) && ((ano % 100 != 0) || (ano % 400 == 0)))));
     }
 
     @Override
     public String toString() {
-        return + dia + "/" + mes + "/" + ano;
+        return +dia + "/" + mes + "/" + ano;
     }
 
 
