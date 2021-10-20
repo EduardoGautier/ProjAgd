@@ -160,7 +160,7 @@ public class Main {
             return Collections.emptyList();
         } else {
             System.out.print("Digite o nome do contato que deseja: ");
-            Contato busca = agenda.pesquisarContatoNome(leia.next());
+            Contato busca = agenda.pesquisarContatoNome(leia.nextLine());
             if (busca == null) {
                 System.out.println("Contato não cadastrado");
             } else {
@@ -204,7 +204,7 @@ public class Main {
             return;
         }
         System.out.print("Digite o nome do contato que deseja excluir: ");
-        Contato busca = agenda.pesquisarContatoNome(leia.next());
+        Contato busca = agenda.pesquisarContatoNome(leia.nextLine());
         if (busca == null) {
             System.out.println("Contato não cadastrado");
             return;
