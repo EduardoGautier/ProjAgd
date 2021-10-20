@@ -1,7 +1,6 @@
 package com.company.projagd;
 
 /**
- *
  * @author Eduardo Jose Gautier
  */
 public class Seguranca {
