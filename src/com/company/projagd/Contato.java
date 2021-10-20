@@ -1,6 +1,7 @@
 package com.company.projagd;
 
 public class Contato {
+    
     private String nome;
     private String fone;
     private Data objData;
