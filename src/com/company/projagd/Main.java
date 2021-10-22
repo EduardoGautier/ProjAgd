@@ -5,6 +5,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ *
+ * @author Eduardo Jose Gautier
+ * 
+ */
+
 public class Main {
 
     private static boolean autentication() {
@@ -174,6 +180,7 @@ public class Main {
 
     private static List<Contato> alterarContatoPorNome(final Agenda agenda) {
         Scanner leia = new Scanner(System.in);
+        String nome;
         String fone;
         if (agenda.getListaDeContato().isEmpty()) {
             System.out.println("Não existem contatos cadastrados");
@@ -184,7 +191,6 @@ public class Main {
             if (busca == null) {
                 System.out.println("Contato não cadastrado");
             } else {
-
                 System.out.print("Digite o novo telefone: ");
                 busca.setFone(leia.next());
                 System.out.println("Telefone Alterado Com Sucesso");
@@ -336,3 +342,4 @@ public class Main {
         }
     }
 }
+
