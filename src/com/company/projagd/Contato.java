@@ -6,8 +6,6 @@ public class Contato {
     private String fone;
     private Data objData;
 
-
-
     public Contato(String nome, String fone) {
         this.nome = nome;
         this.fone = fone;
@@ -37,5 +35,4 @@ public class Contato {
                 + "Telefone: " + fone + "\n"
                 + "Data: " + objData;
     }
-
 }
