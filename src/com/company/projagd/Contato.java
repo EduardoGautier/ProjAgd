@@ -1,5 +1,10 @@
 package com.company.projagd;
 
+/**
+ * @author Eduardo Jose Gautier
+ *
+ */
+
 public class Contato {
     private String nome;
     private String cpf;
