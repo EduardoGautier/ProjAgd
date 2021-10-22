@@ -1,6 +1,11 @@
 package com.company.projagd;
 
 
+/**
+ * @author Eduardo Jose Gautier
+ *
+ */
+
 public class Data {
     private byte dia;
     private byte mes;
