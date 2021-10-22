@@ -5,6 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author Eduardo Jose Gautier
+ *
+ */
+
 public class Agenda {
 
     private List<Contato> listaDeContato;
@@ -49,11 +54,25 @@ public class Agenda {
 
 
     public Contato pesquisarContatoNome(String nome) {
+
         for (final Contato contato : listaDeContato) {
             if (contato.getNome().equalsIgnoreCase(nome)) {
                 return contato;
             }
         }
+
+        return null;
+    }
+
+
+    public Contato pesquisarContatoPorCPf(String cpf) {
+
+        for (final Contato contato : listaDeContato) {
+            if (contato.getCpf().equalsIgnoreCase(cpf)) {
+                return contato;
+            }
+        }
+
         return null;
     }
 
@@ -69,6 +88,16 @@ public class Agenda {
 
         for (final Contato contato : listaDeContato) {
             if (contato.getNome().equalsIgnoreCase(nome)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean verificarCadastroCpf(String cpf) {
+
+        for (final Contato contato : listaDeContato) {
+            if (contato.getCpf().equalsIgnoreCase(cpf)) {
                 return true;
             }
         }
