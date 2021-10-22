@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-
 public class Agenda {
 
     private List<Contato> listaDeContato;
@@ -48,14 +47,13 @@ public class Agenda {
         return true;
     }
 
-    public Contato pesquisarContatoNome(String nome) {
 
+    public Contato pesquisarContatoNome(String nome) {
         for (final Contato contato : listaDeContato) {
             if (contato.getNome().equalsIgnoreCase(nome)) {
                 return contato;
             }
         }
-
         return null;
     }
 
