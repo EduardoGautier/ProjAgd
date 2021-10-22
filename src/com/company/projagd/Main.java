@@ -5,10 +5,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+
 /**
  *
  * @author Eduardo Jose Gautier
- * 
+ *
  */
 
 public class Main {
@@ -49,11 +50,12 @@ public class Main {
                 + "│ 1 - CADASTRAR CONTATO                                    │\n"
                 + "│ 2 - MOSTRAR TODOS OS CONTATOS                            │\n"
                 + "│ 3 - MOSTRAR QUANTIDADE DE CONTATOS                       │\n"
-                + "│ 4 - PESQUISAR ANIVERSARIANTES DO MÊS                     │\n"
-                + "│ 5 - PESQUISAR ANIVERSARIANTES DO NOME                    │\n"
-                + "│ 6 - ALTERAR TELEFONE                                     │\n"
-                + "│ 7 - REMOVER CONTATO  POR NOME                            │\n"
-                + "│ 8 - EXCLUIR TODOS OS CONTATOS                            │\n"
+                + "│ 4 - PESQUISAR CONTATO POR MÊS                            │\n"
+                + "│ 5 - PESQUISAR CONTATO POR CPF                            │\n"
+                + "│ 6 - PESQUISAR CONTATO POR NOME                           │\n"
+                + "│ 7 - ALTERAR TELEFONE                                     │\n"
+                + "│ 8 - REMOVER CONTATO  POR NOME                            │\n"
+                + "│ 9 - EXCLUIR TODOS OS CONTATOS                            │\n"
                 + "│ 0 - SAIR                                                 │\n"
                 + "└----------------------------------------------------------┘\n"
                 + "Digite a opção desejada:  ");
@@ -63,7 +65,7 @@ public class Main {
 
         Scanner leia = new Scanner(System.in);
         String nome;
-
+        String cpf;
 
         do {
             System.out.println("┌---------------------------┐\n"
@@ -73,6 +75,11 @@ public class Main {
             nome = leia.nextLine();
             if (agenda.verificarCadastro(nome)) {
                 System.out.println("\nJá existe um contato com esse nome!\nInicie novamente o cadastro");
+            }
+            System.out.print("CPF: ");
+            cpf = leia.nextLine();
+            if (agenda.verificarCadastroCpf(cpf)) {
+                System.out.println("\nJá existe um contato com esse cpf!\nInicie novamente o cadastro");
                 continue;
             }
             break;
@@ -81,7 +88,7 @@ public class Main {
         System.out.print("Telefone: ");
         final String fone = leia.next();
 
-        final Contato contato = new Contato(nome, fone);
+        final Contato contato = new Contato(nome,cpf, fone);
 
         do {
             System.out.println("┌----------------------------┐\n"
@@ -167,6 +174,25 @@ public class Main {
         } else {
             System.out.print("Digite o nome do contato que deseja: ");
             Contato busca = agenda.pesquisarContatoNome(leia.nextLine());
+            if (busca == null) {
+                System.out.println("Contato não cadastrado");
+            } else {
+                System.out.println("O contato é: " + busca);
+
+            }
+        }
+        return new ArrayList<>(0);
+    }
+
+    private static List<Contato> pesquisarContatoPorCPF(final Agenda agenda) {
+        Scanner leia = new Scanner(System.in);
+
+        if (agenda.getListaDeContato().isEmpty()) {
+            System.out.println("Não existem contatos cadastrados");
+            return Collections.emptyList();
+        } else {
+            System.out.print("Digite o cpf do contato que deseja: ");
+            Contato busca = agenda.pesquisarContatoPorCPf(leia.nextLine());
             if (busca == null) {
                 System.out.println("Contato não cadastrado");
             } else {
@@ -314,20 +340,25 @@ public class Main {
                     break;
                 case 5:
 
-                    pesquisarContatoPorNome(agenda);
+                    pesquisarContatoPorCPF(agenda);
 
                     break;
                 case 6:
 
-                    alterarContatoPorNome(agenda);
+                    pesquisarContatoPorNome(agenda);
 
                     break;
                 case 7:
 
-                    excluirContatoPorNome(agenda);
+                    alterarContatoPorNome(agenda);
 
                     break;
                 case 8:
+
+                    excluirContatoPorNome(agenda);
+
+                    break;
+                case 9:
 
                     excluirTodosContatos(agenda);
 
@@ -342,4 +373,3 @@ public class Main {
         }
     }
 }
-
