@@ -7,9 +7,7 @@ import java.util.Scanner;
 
 
 /**
- *
  * @author Eduardo Jose Gautier
- *
  */
 
 public class Main {
@@ -88,7 +86,7 @@ public class Main {
         System.out.print("Telefone: ");
         final String fone = leia.next();
 
-        final Contato contato = new Contato(nome,cpf, fone);
+        final Contato contato = new Contato(nome, cpf, fone);
 
         do {
             System.out.println("┌----------------------------┐\n"

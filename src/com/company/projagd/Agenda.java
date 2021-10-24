@@ -7,7 +7,6 @@ import java.util.Objects;
 
 /**
  * @author Eduardo Jose Gautier
- *
  */
 
 public class Agenda {

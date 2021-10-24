@@ -2,7 +2,6 @@ package com.company.projagd;
 
 /**
  * @author Eduardo Jose Gautier
- *
  */
 
 public class Contato {
@@ -12,8 +11,7 @@ public class Contato {
     private Data objData;
 
 
-
-    public Contato(String nome,String cpf, String fone) {
+    public Contato(String nome, String cpf, String fone) {
         this.nome = nome;
         this.cpf = cpf;
         this.fone = fone;
@@ -23,7 +21,7 @@ public class Contato {
         return nome;
     }
 
-    public String getCpf(){
+    public String getCpf() {
         return cpf;
     }
 

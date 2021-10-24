@@ -3,7 +3,6 @@ package com.company.projagd;
 
 /**
  * @author Eduardo Jose Gautier
- *
  */
 
 public class Data {
@@ -29,7 +28,6 @@ public class Data {
     public byte getMes() {
         return mes;
     }
-
 
 
     @Override
