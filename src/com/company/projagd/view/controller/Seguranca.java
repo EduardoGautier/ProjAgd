@@ -1,6 +1,7 @@
-package com.company.projagd;
+package com.company.projagd.view.controller;
 
 /**
+ *
  * @author Eduardo Jose Gautier
  */
 public class Seguranca {

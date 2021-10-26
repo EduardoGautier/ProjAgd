@@ -1,12 +1,14 @@
-package com.company.projagd;
+package com.company.projagd.view.controller;
 
-import java.util.ArrayList;
+import com.company.projagd.view.model.Contato;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * @author Eduardo Jose Gautier
+ *
  */
 
 public class Agenda {

@@ -1,4 +1,12 @@
-package com.company.projagd;
+package com.company.projagd.view;
+
+import com.company.projagd.view.controller.Agenda;
+import com.company.projagd.view.controller.Seguranca;
+import com.company.projagd.view.exceptions.AuthenticationException;
+import com.company.projagd.view.exceptions.DataException;
+import com.company.projagd.view.model.Contato;
+import com.company.projagd.view.model.Data;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,11 +33,11 @@ public class Main {
             String senha = leia.nextLine();
 
 
-            if (seguranca.autenticar(usuario, senha) == false) {
-                System.out.println("\nUsuario ou senha Invalidos!\nDigite Novamente!\n");
-                continue;
-            }
+            if (!(seguranca.autenticar(usuario, senha))) {
 
+                throw new AuthenticationException("Usuario Ou Senha Invalidos");
+
+            }
             System.out.println("Usuario autenticado com sucesso!");
             break;
 
@@ -40,23 +48,31 @@ public class Main {
 
 
     private static void menu() {
+        new Thread() {
+
+            @Override
+            public void run() {
+
+                System.out.print("\n┌----------------------------------------------------------┐\n"
+                        + "│                       SISTEMA DE AGENDA                  │\n"
+                        + "│----------------------------------------------------------│\n"
+                        + "│ 1 - CADASTRAR CONTATO                                    │\n"
+                        + "│ 2 - MOSTRAR TODOS OS CONTATOS                            │\n"
+                        + "│ 3 - MOSTRAR QUANTIDADE DE CONTATOS                       │\n"
+                        + "│ 4 - PESQUISAR CONTATO POR MÊS                            │\n"
+                        + "│ 5 - PESQUISAR CONTATO POR CPF                            │\n"
+                        + "│ 6 - PESQUISAR CONTATO POR NOME                           │\n"
+                        + "│ 7 - ALTERAR TELEFONE                                     │\n"
+                        + "│ 8 - REMOVER CONTATO  POR NOME                            │\n"
+                        + "│ 9 - EXCLUIR TODOS OS CONTATOS                            │\n"
+                        + "│ 0 - SAIR                                                 │\n"
+                        + "└----------------------------------------------------------┘\n"
+                        + "Digite a opção desejada:  ");
+
+            }
+        }.start();
 
 
-        System.out.print("\n┌----------------------------------------------------------┐\n"
-                + "│                       SISTEMA DE AGENDA                  │\n"
-                + "│----------------------------------------------------------│\n"
-                + "│ 1 - CADASTRAR CONTATO                                    │\n"
-                + "│ 2 - MOSTRAR TODOS OS CONTATOS                            │\n"
-                + "│ 3 - MOSTRAR QUANTIDADE DE CONTATOS                       │\n"
-                + "│ 4 - PESQUISAR CONTATO POR MÊS                            │\n"
-                + "│ 5 - PESQUISAR CONTATO POR CPF                            │\n"
-                + "│ 6 - PESQUISAR CONTATO POR NOME                           │\n"
-                + "│ 7 - ALTERAR TELEFONE                                     │\n"
-                + "│ 8 - REMOVER CONTATO  POR NOME                            │\n"
-                + "│ 9 - EXCLUIR TODOS OS CONTATOS                            │\n"
-                + "│ 0 - SAIR                                                 │\n"
-                + "└----------------------------------------------------------┘\n"
-                + "Digite a opção desejada:  ");
     }
 
     private static Contato cadastrar(final Agenda agenda) {
@@ -73,7 +89,9 @@ public class Main {
             nome = leia.nextLine();
             if (agenda.verificarCadastro(nome)) {
                 System.out.println("\nJá existe um contato com esse nome!\nInicie novamente o cadastro");
+                continue;
             }
+
             System.out.print("CPF: ");
             cpf = leia.nextLine();
             if (agenda.verificarCadastroCpf(cpf)) {
@@ -81,54 +99,73 @@ public class Main {
                 continue;
             }
             break;
+
+
         } while (true);
 
         System.out.print("Telefone: ");
         final String fone = leia.next();
 
         final Contato contato = new Contato(nome, cpf, fone);
+        try {
 
-        do {
-            System.out.println("┌----------------------------┐\n"
-                    + "│Informe a data de nascimento│\n"
-                    + "└----------------------------┘");
-            System.out.print("Dia: ");
-            final int dia = leia.nextByte();
-            System.out.print("Mês: ");
-            final int mes = leia.nextByte();
-            System.out.print("Ano: ");
-            final int ano = leia.nextInt();
-            if (!(Data.validarData(dia, mes, ano))) {
-                System.out.println("\nData inválida\nDigite novamente");
-                continue;
-            }
-            contato.setObjData(new Data(dia, mes, ano));
-            break;
-        } while (true);
-        agenda.cadastrarContato(contato);
+            do {
+                System.out.println("┌----------------------------┐\n"
+                        + "│Informe a data de nascimento│\n"
+                        + "└----------------------------┘");
+                System.out.print("Dia: ");
+                final int dia = leia.nextByte();
+                System.out.print("Mês: ");
+                final int mes = leia.nextByte();
+                System.out.print("Ano: ");
+                final int ano = leia.nextInt();
+
+                contato.setObjData(new Data(dia, mes, ano));
+                break;
+            } while (true);
+            agenda.cadastrarContato(contato);
+
+        } catch (Exception e) {
+
+            System.out.println("\nData inválida\nDigite novamente\n" + e.toString());
+        }
+
         return contato;
     }
 
     private static void exibirContatos(final Agenda agenda) {
 
-        final List<Contato> lista = agenda.getListaDeContato();
+        new Thread() {
 
-        if (lista.isEmpty()) {
-            System.out.println("Não existem contatos registrados");
-            return;
-        }
-        String contatos = "┌-----------------┐\n"
-                + "│Lista de contatos│\n"
-                + "└-----------------┘\n";
-        for (Contato contato : lista) {
-            contatos += "\n┌---------┐\n"
-                    + "│CONTATO  " + "│\n"
-                    + "└---------┘" + contato + "\n";
-        }
-        System.out.println(contatos);
+            @Override
+            public void run() {
+
+                final List<Contato> lista = agenda.getListaDeContato();
+
+                if (lista.isEmpty()) {
+                    System.out.println("Não existem contatos registrados");
+                    return;
+                }
+                String contatos = "\n┌-----------------┐\n"
+                        + "│Lista de contatos│\n"
+                        + "└-----------------┘\n";
+                for (Contato contato : lista) {
+                    contatos += "\n┌---------┐\n"
+                            + "│CONTATO  " + "│\n"
+                            + "└---------┘" + contato + "\n";
+                }
+
+                System.out.println(contatos);
+                menu();
+
+            }
+        }.start();
+
+
     }
 
     private static void mostrarQtdContatos(final Agenda agenda) {
+
 
         final List<Contato> lista = agenda.getListaDeContato();
 
@@ -370,4 +407,37 @@ public class Main {
             }
         }
     }
+}
+
+
+class apresentationGenerics<T extends Comparable<T>> {
+
+    private T objeto;
+
+    public apresentationGenerics(final T objeto) {
+        this.objeto = objeto;
+
+    }
+
+    @Override
+    public String toString() {
+        return objeto.getClass().getSimpleName();
+    }
+
+    public static void main(String[] args) {
+        final String teste = "Ola";
+        final Integer integer = 10;
+
+
+        final apresentationGenerics<String> st = new apresentationGenerics<>(teste);
+        final apresentationGenerics<Integer> inte = new apresentationGenerics<>(integer);
+
+
+        System.out.println(st);
+        System.out.println(inte);
+
+
+    }
+
+
 }
