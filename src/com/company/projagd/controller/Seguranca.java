@@ -1,4 +1,4 @@
-package com.company.projagd.view.controller;
+package com.company.projagd.controller;
 
 /**
  *

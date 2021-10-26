@@ -1,6 +1,6 @@
-package com.company.projagd.view.controller;
+package com.company.projagd.controller;
 
-import com.company.projagd.view.model.Contato;
+import com.company.projagd.model.Contato;
 
 import java.util.LinkedList;
 import java.util.List;

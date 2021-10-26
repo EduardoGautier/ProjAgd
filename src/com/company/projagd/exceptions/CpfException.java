@@ -1,4 +1,4 @@
-package com.company.projagd.view.exceptions;
+package com.company.projagd.exceptions;
 
 public class CpfException extends Exception{
 

@@ -1,4 +1,4 @@
-package com.company.projagd.view.model;
+package com.company.projagd.model;
 
 /**
  * @author Eduardo Jose Gautier

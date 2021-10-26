@@ -1,11 +1,10 @@
 package com.company.projagd.view;
 
-import com.company.projagd.view.controller.Agenda;
-import com.company.projagd.view.controller.Seguranca;
-import com.company.projagd.view.exceptions.AuthenticationException;
-import com.company.projagd.view.exceptions.DataException;
-import com.company.projagd.view.model.Contato;
-import com.company.projagd.view.model.Data;
+import com.company.projagd.exceptions.AuthenticationException;
+import com.company.projagd.controller.Agenda;
+import com.company.projagd.controller.Seguranca;
+import com.company.projagd.model.Contato;
+import com.company.projagd.model.Data;
 
 
 import java.util.ArrayList;
