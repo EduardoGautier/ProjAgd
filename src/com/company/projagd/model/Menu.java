@@ -1,4 +1,5 @@
-package com.company.projagd.view.model;
+package com.company.projagd.model;
+
 public class Menu<T> {
 
     private T objetoMenu;
