@@ -1,5 +1,4 @@
 package com.company.projagd.model;
-
 /**
  * @author Eduardo Jose Gautier
  *
@@ -29,10 +28,13 @@ public class Contato<T> {
         return cpf;
     }
 
+    public void setNome(String nome) { this.nome = nome; }
 
     public void setFone(String fone) {
         this.fone = fone;
     }
+
+    public void setCpf(String cpf) { this.cpf = cpf; }
 
     public Data getObjData() {
         return objData;
