@@ -32,7 +32,7 @@ public class Menu<T> {
 
     @Override
     public String toString() {
-        return " ┌----------------------------------------------------------┐\n" +
+        return objetoMenu + (" ┌----------------------------------------------------------┐\n" +
                 " │                       SISTEMA DE AGENDA                  │ \n" +
                 " │----------------------------------------------------------│\n" +
                 " │ 1 - CADASTRAR CONTATO                                    │\n" +
@@ -41,12 +41,11 @@ public class Menu<T> {
                 " │ 4 - PESQUISAR CONTATO POR MÊS                            │\n" +
                 " │ 5 - PESQUISAR CONTATO POR CPF                            │\n" +
                 " │ 6 - PESQUISAR CONTATO POR NOME                           │\n" +
-                " │ 7 - ALTERAR TELEFONE                                     │\n" +
+                " │ 7 - ALTERAR CONTATO                                      │\n" +
                 " │ 8 - REMOVER CONTATO  POR NOME                            │\n" +
                 " │ 9 - EXCLUIR TODOS OS CONTATOS                            │\n" +
                 " │ 0 - SAIR                                                 │\n" +
                 " └----------------------------------------------------------┘\n" +
-                " Digite a opção desejada:  " + objetoMenu;
+                " Digite a opção desejada:  ");
     }
 }
-
