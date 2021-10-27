@@ -70,7 +70,8 @@ public class Main {
 
         Scanner leia = new Scanner(System.in);
         String nome;
-        String cpf;
+        String cpf = "";
+
 
         do {
             System.out.println("┌---------------------------┐\n"
@@ -83,10 +84,11 @@ public class Main {
                 continue;
             }
 
+
             System.out.print("CPF: ");
             cpf = leia.nextLine();
             if (agenda.verificarCadastroCpf(cpf)) {
-                throw  new CpfException("Já existe um contato com esse cpf!");
+                throw new CpfException("Já existe um contato com esse cpf!");
             }
             break;
 
@@ -123,7 +125,7 @@ public class Main {
         return contato;
     }
 
-    private static void exibirContatos (final Agenda agenda)  {
+    private static void exibirContatos(final Agenda agenda) {
 
         new Thread() {
 
@@ -164,7 +166,7 @@ public class Main {
             return;
         }
 
-        System.out.print(" A quantidade de contatos é: " + agenda.mostrarQtdContatos()+ "\n");
+        System.out.print(" A quantidade de contatos é: " + agenda.mostrarQtdContatos() + "\n");
 
 
     }
@@ -231,22 +233,26 @@ public class Main {
 
     private static List<Contato> alterarContatoPorNome(final Agenda agenda) {
         Scanner leia = new Scanner(System.in);
-        String nome;
-        String fone;
+
         if (agenda.getListaDeContato().isEmpty()) {
             System.out.println("Não existem contatos cadastrados");
             return Collections.emptyList();
-        } else {
+        }
             System.out.print("Digite o nome do contato que deseja alterar: ");
             Contato busca = agenda.alteraracaoContatoPorNome(leia.nextLine());
             if (busca == null) {
                 System.out.println("Contato não cadastrado");
-            } else {
+            }else {
+                System.out.print("Novo Nome: ");
+                busca.setNome(leia.nextLine());
+                System.out.print("Digite o Novo Cpf: ");
+                busca.setCpf(leia.next());
                 System.out.print("Digite o novo telefone: ");
                 busca.setFone(leia.next());
-                System.out.println("Telefone Alterado Com Sucesso");
+                System.out.print("Telefone Alterado Com Sucesso\n");
             }
-        }
+
+
         return new ArrayList<>(0);
     }
 
@@ -327,7 +333,7 @@ public class Main {
     }
 
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
 
         Scanner leia = new Scanner(System.in);
         final Agenda agenda = new Agenda();
@@ -420,14 +426,12 @@ class apresentationGenerics<T extends Comparable<T>> {
         final Integer integer = 10;
 
 
-
         final apresentationGenerics<String> st = new apresentationGenerics<>(teste);
         final apresentationGenerics<Integer> inte = new apresentationGenerics<>(integer);
 
 
         System.out.println(st);
         System.out.println(inte);
-
 
 
     }
