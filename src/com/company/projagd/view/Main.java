@@ -5,6 +5,7 @@ import com.company.projagd.controller.Agenda;
 import com.company.projagd.controller.Seguranca;
 import com.company.projagd.model.Contato;
 import com.company.projagd.model.Data;
+import com.company.projagd.view.model.Menu;
 
 
 import java.util.ArrayList;
@@ -25,10 +26,10 @@ public class Main {
         Seguranca seguranca = new Seguranca();
         do {
 
-            System.out.println("Usuario: ");
+            System.out.print("Usuario: ");
             String usuario = leia.nextLine();
 
-            System.out.println("Senha: ");
+            System.out.print("Senha: ");
             String senha = leia.nextLine();
 
 
@@ -48,25 +49,15 @@ public class Main {
 
     private static void menu() {
         new Thread() {
-
             @Override
             public void run() {
 
-                System.out.print("\n┌----------------------------------------------------------┐\n"
-                        + "│                       SISTEMA DE AGENDA                  │\n"
-                        + "│----------------------------------------------------------│\n"
-                        + "│ 1 - CADASTRAR CONTATO                                    │\n"
-                        + "│ 2 - MOSTRAR TODOS OS CONTATOS                            │\n"
-                        + "│ 3 - MOSTRAR QUANTIDADE DE CONTATOS                       │\n"
-                        + "│ 4 - PESQUISAR CONTATO POR MÊS                            │\n"
-                        + "│ 5 - PESQUISAR CONTATO POR CPF                            │\n"
-                        + "│ 6 - PESQUISAR CONTATO POR NOME                           │\n"
-                        + "│ 7 - ALTERAR TELEFONE                                     │\n"
-                        + "│ 8 - REMOVER CONTATO  POR NOME                            │\n"
-                        + "│ 9 - EXCLUIR TODOS OS CONTATOS                            │\n"
-                        + "│ 0 - SAIR                                                 │\n"
-                        + "└----------------------------------------------------------┘\n"
-                        + "Digite a opção desejada:  ");
+                Menu<String> ExibirMenu = new Menu<>("");
+
+                //ExibirMenu.exibirMenu();
+
+
+                System.out.print(ExibirMenu.toString());
 
             }
         }.start();
@@ -94,8 +85,7 @@ public class Main {
             System.out.print("CPF: ");
             cpf = leia.nextLine();
             if (agenda.verificarCadastroCpf(cpf)) {
-                System.out.println("\nJá existe um contato com esse cpf!\nInicie novamente o cadastro");
-                continue;
+                throw  new CpfException("Já existe um contato com esse cpf!");
             }
             break;
 
@@ -132,7 +122,7 @@ public class Main {
         return contato;
     }
 
-    private static void exibirContatos(final Agenda agenda) {
+    private static void exibirContatos (final Agenda agenda)  {
 
         new Thread() {
 
@@ -173,7 +163,7 @@ public class Main {
             return;
         }
 
-        System.out.print("A quantidade de contatos é: " + agenda.mostrarQtdContatos());
+        System.out.print(" A quantidade de contatos é: " + agenda.mostrarQtdContatos()+ "\n");
 
 
     }
@@ -336,7 +326,7 @@ public class Main {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
 
         Scanner leia = new Scanner(System.in);
         final Agenda agenda = new Agenda();
@@ -416,6 +406,7 @@ class apresentationGenerics<T extends Comparable<T>> {
     public apresentationGenerics(final T objeto) {
         this.objeto = objeto;
 
+
     }
 
     @Override
@@ -428,12 +419,14 @@ class apresentationGenerics<T extends Comparable<T>> {
         final Integer integer = 10;
 
 
+
         final apresentationGenerics<String> st = new apresentationGenerics<>(teste);
         final apresentationGenerics<Integer> inte = new apresentationGenerics<>(integer);
 
 
         System.out.println(st);
         System.out.println(inte);
+
 
 
     }
