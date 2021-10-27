@@ -3,9 +3,10 @@ package com.company.projagd.view;
 import com.company.projagd.exceptions.AuthenticationException;
 import com.company.projagd.controller.Agenda;
 import com.company.projagd.controller.Seguranca;
+import com.company.projagd.exceptions.CpfException;
 import com.company.projagd.model.Contato;
 import com.company.projagd.model.Data;
-import com.company.projagd.view.model.Menu;
+import com.company.projagd.model.Menu;
 
 
 import java.util.ArrayList;
