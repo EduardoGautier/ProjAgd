@@ -49,28 +49,23 @@ public class Main {
 
 
     private static void menu() {
-        new Thread() {
-            @Override
-            public void run() {
-
-                Menu<String> ExibirMenu = new Menu<>("");
-
-                //ExibirMenu.exibirMenu();
 
 
-                System.out.print(ExibirMenu.toString());
+        Menu<String> ExibirMenu = new Menu<>("");
 
-            }
-        }.start();
+        //ExibirMenu.exibirMenu();
 
+
+        System.out.print(ExibirMenu.toString());
 
     }
+
 
     private static Contato cadastrar(final Agenda agenda) {
 
         Scanner leia = new Scanner(System.in);
         String nome;
-        String cpf = "";
+        String cpf;
 
 
         do {
@@ -125,12 +120,12 @@ public class Main {
         return contato;
     }
 
-    private static void exibirContatos(final Agenda agenda) {
-
-        new Thread() {
+    private static void exibirContatos(final Agenda agenda)  {
+        new Thread("") {
 
             @Override
             public void run() {
+
 
                 final List<Contato> lista = agenda.getListaDeContato();
 
@@ -145,13 +140,14 @@ public class Main {
                     contatos += "\n┌---------┐\n"
                             + "│CONTATO  " + "│\n"
                             + "└---------┘" + contato + "\n";
+
+
                 }
 
                 System.out.println(contatos);
-                menu();
-
             }
-        }.start();
+
+        }.run();
 
 
     }
@@ -238,19 +234,19 @@ public class Main {
             System.out.println("Não existem contatos cadastrados");
             return Collections.emptyList();
         }
-            System.out.print("Digite o nome do contato que deseja alterar: ");
-            Contato busca = agenda.alteraracaoContatoPorNome(leia.nextLine());
-            if (busca == null) {
-                System.out.println("Contato não cadastrado");
-            }else {
-                System.out.print("Novo Nome: ");
-                busca.setNome(leia.nextLine());
-                System.out.print("Digite o Novo Cpf: ");
-                busca.setCpf(leia.next());
-                System.out.print("Digite o novo telefone: ");
-                busca.setFone(leia.next());
-                System.out.print("Telefone Alterado Com Sucesso\n");
-            }
+        System.out.print("Digite o nome do contato que deseja alterar: ");
+        Contato busca = agenda.alteraracaoContatoPorNome(leia.nextLine());
+        if (busca == null) {
+            System.out.println("Contato não cadastrado");
+        } else {
+            System.out.print("Novo Nome: ");
+            busca.setNome(leia.nextLine());
+            System.out.print("Digite o Novo Cpf: ");
+            busca.setCpf(leia.next());
+            System.out.print("Digite o novo telefone: ");
+            busca.setFone(leia.next());
+            System.out.print("Telefone Alterado Com Sucesso\n");
+        }
 
 
         return new ArrayList<>(0);
